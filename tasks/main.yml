@@ -1,0 +1,33 @@
+---
+# Variable configuration
+- include_tasks: variables.yml
+
+# Setup/install tasks
+- include_tasks: setup-debian.yml
+  when: ansible_os_family == 'Debian'
+
+# TODO: - include_tasks: build.yml
+- name: Get the configure service repository
+  git:
+    repo: https://gitlab.com/crdc/apex/configure
+    dest: /usr/src/go/src/gitlab.com/crdc/apex/configure
+  tags: [ "plantd-configure" ]
+
+- name: Build the configure service
+  shell: make all
+  args:
+    chdir: /usr/src/go/src/gitlab.com/crdc/apex/configure
+  tags: [ "plantd-configure" ]
+
+# TODO: - include_tasks: configure.yml
+
+- name: Ensure Plantd Configure is started and enabled on boot.
+  service:
+    name: "{{ plantd_configure_daemon }}"
+    state: "{{ plantd_configure_service_state }}"
+    enabled: "{{ plantd_configure_service_enabled }}"
+  tags: [ "plantd-configure" ]
+
+# Configure Plantd Configure
+#- import_tasks: databases.yml
+#- import_tasks: users.yml

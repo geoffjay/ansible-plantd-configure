@@ -1,0 +1,6 @@
+---
+- name: restart plantd-configure
+  service:
+    name: "{{ plantd_configure_daemon }}"
+    state: "{{ plantd_configure_restarted_state }}"
+    sleep: 5

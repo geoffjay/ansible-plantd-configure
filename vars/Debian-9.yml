@@ -1,0 +1,6 @@
+---
+__plantd_configure_version: "0.1.0"
+__plantd_configure_daemon: "apex-configure"
+__plantd_configure_packages:
+  - build-essential
+  - protobuf-compiler
