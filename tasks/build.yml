@@ -1,7 +1,7 @@
 ---
 - name: Get the configure service repository
   git:
-    repo: https://gitlab.com/crdc/apex/configure
+    repo: https://gitlab.com/crdc/apex/apex-configure
     dest: "{{ plantd_configure_srcdir }}"
   tags: [ "plantd-configure" ]
 
