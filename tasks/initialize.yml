@@ -1,0 +1,8 @@
+---
+- name: Install Plantd Configure service file.
+  template:
+    src: apex-configure.service.j2
+    dest: /lib/systemd/system/apex-configure.service
+    mode: 0644
+  notify: restart plantd-configure
+  tags: [ "plantd-configure" ]

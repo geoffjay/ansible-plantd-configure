@@ -4,11 +4,6 @@
   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == 'Debian'
 
-- name: Define plantd_configure_packages
-  set_fact:
-    plantd_configure_packages: "{{ __plantd_configure_packages | list }}"
-  when: plantd_configure_packages is not defined
-
 - name: Define plantd_configure_version
   set_fact:
     plantd_configure_version: "{{ __plantd_configure_version }}"
@@ -18,3 +13,13 @@
   set_fact:
     plantd_configure_daemon: "{{ __plantd_configure_daemon }}"
   when: plantd_configure_daemon is not defined
+
+- name: Define __plantd_configure_srcdir
+  set_fact:
+    plantd_configure_srcdir: "{{ __plantd_configure_srcdir }}"
+  when: plantd_configure_srcdir is not defined
+
+- name: Define plantd_configure_packages
+  set_fact:
+    plantd_configure_packages: "{{ __plantd_configure_packages | list }}"
+  when: plantd_configure_packages is not defined

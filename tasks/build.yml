@@ -1,0 +1,24 @@
+---
+- name: Get the configure service repository
+  git:
+    repo: https://gitlab.com/crdc/apex/configure
+    dest: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]
+
+- name: Install the go dependencies
+  shell: make setup
+  args:
+    chdir: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]
+
+- name: Build the configure service Protobuf related
+  shell: make proto
+  args:
+    chdir: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]
+
+- name: Build the configure service
+  shell: make build
+  args:
+    chdir: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]

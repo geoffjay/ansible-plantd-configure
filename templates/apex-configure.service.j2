@@ -1,0 +1,12 @@
+[Unit]
+Description=Plantd Configure Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory={{ plantd_configure_srcdir }}
+ExecStart={{ plantd_configure_srcdir }}/bin/configure-master-linux-amd64
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
