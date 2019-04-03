@@ -3,22 +3,24 @@
   git:
     repo: https://gitlab.com/crdc/apex/apex-configure
     dest: "{{ plantd_configure_srcdir }}"
-  tags: [ "plantd-configure" ]
-
-- name: Install the go dependencies
-  shell: make setup
-  args:
-    chdir: "{{ plantd_configure_srcdir }}"
-  tags: [ "plantd-configure" ]
-
-- name: Build the configure service Protobuf related
-  shell: make proto
-  args:
-    chdir: "{{ plantd_configure_srcdir }}"
+    force: yes
   tags: [ "plantd-configure" ]
 
 - name: Build the configure service
-  shell: make build
+  shell: make
   args:
     chdir: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]
+
+- name: Install the configure service
+  shell: make install
+  args:
+    chdir: "{{ plantd_configure_srcdir }}"
+  tags: [ "plantd-configure" ]
+
+- name: Ensure Plantd Configure is started and enabled on boot.
+  systemd:
+    name: "{{ plantd_configure_daemon }}"
+    state: "{{ plantd_configure_service_state }}"
+    enabled: "{{ plantd_configure_service_enabled }}"
   tags: [ "plantd-configure" ]
